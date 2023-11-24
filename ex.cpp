@@ -53,16 +53,12 @@ int main(void)
 	//2
 	for(unsigned i = 0; i < N; i++)
 		task &= !(p[1][i][6] ^ p[2][i][3]) ;
-
 	for(unsigned i = 0; i < N; i++)
 		task &= !(p[3][i][7] ^ p[1][i][6]) ;
-
 	for(unsigned i = 0; i < N; i++)
 		task &= !(p[3][i][6] ^ p[1][i][3]) ;
-
 	for(unsigned i = 0; i < N; i++)
 		task &= !(p[2][i][3] ^ p[1][i][6]) ;
-
 	for(unsigned i = 0; i < N; i++)
 		task &= !(p[3][i][8] ^ p[0][i][2]) ;
 
@@ -120,94 +116,130 @@ int main(void)
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[2][i][4] ^ p[3][i+2][5]) ;
-	// 	else
-	// 		task &= !(p[2][i][4]);
-	// }
-	// for(unsigned i = 0; i < N; i++)
-	// {
-	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
 	// 		task &= !(p[3][i][1] ^ p[3][i+2][8]) ;
 	// 	else
 	// 		task &= !(p[3][i][1]);
 	// }
 
 	//3-Доп
-	// for(unsigned i = 0; i < N; i++)
-	// {
-	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[2][i][4] ^ p[2][i+2][8]) ;
-	// 	else
-	// 		task &= !(p[2][i][4]);
-	// }
-
-	//4
 	for(unsigned i = 0; i < N; i++)
 	{
-		
-		if(i != 2 && i != 5 && i != 8)
-			task &= !(p[0][i][0] ^ p[1][i+1][7]) ;
 		if(i == 1 || i == 2 || i == 4 || i == 5)
-			task &= !(p[0][i][0] ^ p[1][i+2][7]) ;
-		if((!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5)))
-			task &= !(p[0][i][0]);
+			task &= !(p[2][i][4] ^ p[2][i+2][8]) ;
+		else
+			task &= !(p[2][i][4]);
 	}
+	for(unsigned i = 0; i < N; i++)
+	{
+		if(i == 1 || i == 2 || i == 4 || i == 5)
+			task &= !(p[2][i][4] ^ p[3][i+2][5]) ;
+		else
+			task &= !(p[2][i][4]);
+	}
+
+	//4
+	bdd temp = bddfalse;
+	for(unsigned i = 0; i < N; i++)
+	{
+		if(i != 2 && i != 5 && i != 8)
+		{
+			temp |= !(p[0][i][0] ^ p[1][i+1][7]) ;
+		}
+		if(i == 1 || i == 2 || i == 4 || i == 5)
+		{
+			temp |= !(p[0][i][0] ^ p[1][i+2][7]) ;
+		}
+		if(!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5))
+		{
+			task &= !(p[0][i][0]);
+		}
+		else
+			task &= temp;
+		temp = bddfalse;
+	}
+
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[3][i][4] ^ p[3][i+1][8]) ;
+	// 		temp |= !(p[0][i][8] ^ p[1][i+1][1]) ;
 	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[3][i][4] ^ p[3][i+2][8]) ;
+	// 		temp |= !(p[0][i][8] ^ p[1][i+2][1]) ;
+	// 	if(!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5))
+	// 		task &= !(p[0][i][8]);
+	// 	else
+	// 	{
+	// 		task &= temp;
+	// 	}
+	// }
+	
+	
+	// temp = bddfalse;
+	// for(unsigned i = 0; i < N; i++)
+	// {
+	// 	if(i != 2 && i != 5 && i != 8)
+	// 		temp |= !(p[3][i][4] ^ p[3][i+1][8]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		temp |= !(p[3][i][4] ^ p[3][i+2][8]) ;
 	// 	if((!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5)))
 	// 		task &= !(p[3][i][4]);
 	// }
+	// task &= temp;
+	// temp = bddfalse;
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[1][i][3] ^ p[3][i+1][3]) ;
+	// 		temp |= !(p[1][i][3] ^ p[3][i+1][3]) ;
 	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[1][i][3] ^ p[3][i+2][3]) ;
+	// 		temp |= !(p[1][i][3] ^ p[3][i+2][3]) ;
 	// 	if((!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5)))
 	// 		task &= !(p[1][i][3]);
 	// }
+	// task &= temp;
+	// temp = bddfalse;
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[1][i][8] ^ p[0][i+1][5]) ;
+	// 		temp |= !(p[2][i][1] ^ p[0][i+1][5]) ;
 	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[1][i][8] ^ p[0][i+2][5]) ;
+	// 		temp |= !(p[2][i][1] ^ p[0][i+2][5]) ;
 	// 	if(!(i != 2 && i != 5 && i != 8 || i == 1 || i == 2 || i == 4 || i == 5))
-	// 		task &= !(p[1][i][8]);
+	// 		task &= !(p[2][i][1]);
 	// }
+	// task &= temp;
 
 	//4-доп
+	// temp = bddfalse;
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[3][i][7] ^ p[1][i+1][0]) ;
-	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[3][i][7] ^ p[1][i+2][0]) ;
-	// 	else
+	// 		temp |= !(p[3][i][7] ^ p[1][i+1][0]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		temp |= !(p[3][i][7] ^ p[1][i+2][0]) ;
+	// 	if(!(i != 2 && i != 5 && i != 8 || i == 1 || i == 2 || i == 4 || i == 5))
 	// 		task &= !(p[3][i][7]);
 	// }
+	// task &= temp;
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[0][i][7] ^ p[3][i+1][7]) ;
+	// 		temp |= !(p[0][i][7] ^ p[3][i+1][7]) ;
 	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[0][i][7] ^ p[3][i+2][7]) ;
+	// 		temp |= !(p[0][i][7] ^ p[3][i+2][7]) ;
 	// 	else
-	// 		task &= !(p[0][i][7]);
+	// 		temp |= !(p[0][i][7]);
 	// }
+	// task &= temp;
+	// temp = bddfalse;
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[0][i][5] ^ p[1][i+1][3]) ;
+	// 		temp |= !(p[0][i][5] ^ p[1][i+1][3]) ;
 	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[0][i][5] ^ p[1][i+2][3]) ;
+	// 		temp |= !(p[0][i][5] ^ p[1][i+2][3]) ;
 	// 	else
-	// 		task &= !(p[0][i][5]);
+	// 		temp |= !(p[0][i][5]);
 	// }
+	// task &= temp;
 
 	bdd tmp = bddfalse;
 	for(unsigned i = 0; i < N; i++)
