@@ -67,18 +67,18 @@ int main(void)
 		task &= !(p[3][i][8] ^ p[0][i][2]) ;
 
 	//2-доп
-	for(unsigned i = 0; i < N; i++)
-		task &= !(p[0][i][3] ^ p[3][i][2]) ;
-	for(unsigned i = 0; i < N; i++)
-		task &= !(p[0][i][5] ^ p[1][i][8]) ;
-	for(unsigned i = 0; i < N; i++)
-		task &= !(p[2][i][2] ^ p[1][i][2]) ;
-	for(unsigned i = 0; i < N; i++)
-		task &= !(p[3][i][5] ^ p[0][i][0]) ;
-	for(unsigned i = 0; i < N; i++)
-		task &= !(p[2][i][1] ^ p[0][i][4]) ;
-	for(unsigned i = 0; i < N; i++)
-		task &= !(p[2][i][7] ^ p[3][i][3]) ;
+	// for(unsigned i = 0; i < N; i++)
+	// 	task &= !(p[0][i][3] ^ p[3][i][2]) ;
+	// for(unsigned i = 0; i < N; i++)
+	// 	task &= !(p[0][i][5] ^ p[1][i][8]) ;
+	// for(unsigned i = 0; i < N; i++)
+	// 	task &= !(p[2][i][2] ^ p[1][i][2]) ;
+	// for(unsigned i = 0; i < N; i++)
+	// 	task &= !(p[3][i][5] ^ p[0][i][0]) ;
+	// for(unsigned i = 0; i < N; i++)
+	// 	task &= !(p[2][i][1] ^ p[0][i][4]) ;
+	// for(unsigned i = 0; i < N; i++)
+	// 	task &= !(p[2][i][7] ^ p[3][i][3]) ;
 
 
 	//3
@@ -106,22 +106,6 @@ int main(void)
 	for(unsigned i = 0; i < N; i++)
 	{
 		if(i == 1 || i == 2 || i == 4 || i == 5)
-			task &= !(p[2][i][4] ^ p[3][i+2][5]) ;
-		else
-			task &= !(p[2][i][4]);
-	}
-	for(unsigned i = 0; i < N; i++)
-	{
-		if(i == 1 || i == 2 || i == 4 || i == 5)
-			task &= !(p[3][i][1] ^ p[3][i+2][8]) ;
-		else
-			task &= !(p[3][i][1]);
-	}
-
-	//3-Доп
-	for(unsigned i = 0; i < N; i++)
-	{
-		if(i == 1 || i == 2 || i == 4 || i == 5)
 			task &= !(p[0][i][5] ^ p[1][i+2][5]) ;
 		else
 			task &= !(p[0][i][5]);
@@ -133,50 +117,67 @@ int main(void)
 		else
 			task &= !(p[0][i][4]);
 	}
-	for(unsigned i = 0; i < N; i++)
-	{
-		if(i == 1 || i == 2 || i == 4 || i == 5)
-			task &= !(p[2][i][4] ^ p[2][i+2][8]) ;
-		else
-			task &= !(p[2][i][4]);
-	}
-
-	//4
 	// for(unsigned i = 0; i < N; i++)
 	// {
-	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[2][i][1] ^ p[0][i+1][8]) ;
-	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[2][i][1] ^ p[0][i+2][8]) ;
-	// 	else
-	// 		task &= !(p[2][i][1]);
-	// }
-	// for(unsigned i = 0; i < N; i++)
-	// {
-	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[2][i][4] ^ p[0][i+1][7]) ;
-	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[2][i][4] ^ p[0][i+2][7]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		task &= !(p[2][i][4] ^ p[3][i+2][5]) ;
 	// 	else
 	// 		task &= !(p[2][i][4]);
 	// }
 	// for(unsigned i = 0; i < N; i++)
 	// {
-	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[1][i][2] ^ p[2][i+1][1]) ;
-	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[1][i][2] ^ p[2][i+2][1]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		task &= !(p[3][i][1] ^ p[3][i+2][8]) ;
 	// 	else
-	// 		task &= !(p[1][i][2]);
+	// 		task &= !(p[3][i][1]);
+	// }
+
+	//3-Доп
+	// for(unsigned i = 0; i < N; i++)
+	// {
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		task &= !(p[2][i][4] ^ p[2][i+2][8]) ;
+	// 	else
+	// 		task &= !(p[2][i][4]);
+	// }
+
+	//4
+	for(unsigned i = 0; i < N; i++)
+	{
+		
+		if(i != 2 && i != 5 && i != 8)
+			task &= !(p[0][i][0] ^ p[1][i+1][7]) ;
+		if(i == 1 || i == 2 || i == 4 || i == 5)
+			task &= !(p[0][i][0] ^ p[1][i+2][7]) ;
+		if((!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5)))
+			task &= !(p[0][i][0]);
+	}
+	// for(unsigned i = 0; i < N; i++)
+	// {
+	// 	if(i != 2 && i != 5 && i != 8)
+	// 		task &= !(p[3][i][4] ^ p[3][i+1][8]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		task &= !(p[3][i][4] ^ p[3][i+2][8]) ;
+	// 	if((!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5)))
+	// 		task &= !(p[3][i][4]);
 	// }
 	// for(unsigned i = 0; i < N; i++)
 	// {
 	// 	if(i != 2 && i != 5 && i != 8)
-	// 		task &= !(p[1][i][4] ^ p[1][i+1][1]) ;
-	// 	else if(i == 1 || i == 2 || i == 4 || i == 5)
-	// 		task &= !(p[1][i][4] ^ p[1][i+2][1]) ;
-	// 	else
-	// 		task &= !(p[1][i][4]);
+	// 		task &= !(p[1][i][3] ^ p[3][i+1][3]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		task &= !(p[1][i][3] ^ p[3][i+2][3]) ;
+	// 	if((!(i != 2 && i != 5 && i != 8) && !(i == 1 || i == 2 || i == 4 || i == 5)))
+	// 		task &= !(p[1][i][3]);
+	// }
+	// for(unsigned i = 0; i < N; i++)
+	// {
+	// 	if(i != 2 && i != 5 && i != 8)
+	// 		task &= !(p[1][i][8] ^ p[0][i+1][5]) ;
+	// 	if(i == 1 || i == 2 || i == 4 || i == 5)
+	// 		task &= !(p[1][i][8] ^ p[0][i+2][5]) ;
+	// 	if(!(i != 2 && i != 5 && i != 8 || i == 1 || i == 2 || i == 4 || i == 5))
+	// 		task &= !(p[1][i][8]);
 	// }
 
 	//4-доп
@@ -206,15 +207,43 @@ int main(void)
 	// 		task &= !(p[0][i][5] ^ p[1][i+2][3]) ;
 	// 	else
 	// 		task &= !(p[0][i][5]);
-	// }	
+	// }
+
+	bdd tmp = bddfalse;
+	for(unsigned i = 0; i < N; i++)
+	{
+		for(unsigned j = 0; j < M; j++)
+		{
+			for(unsigned k = 0; k < N; k++)
+			{
+				tmp |= p[j][i][k];
+			}
+			task &= tmp;
+			tmp = bddfalse;
+		}
+	}
+
+	for(unsigned i = 0; i < M; i++)
+	{
+		for(unsigned j = 0; j < N; j++)
+		{
+			for(unsigned k = 0; k < N; k++)
+			{
+				for(unsigned m = j+1; m < N; m++)
+				{
+					task &= (p[i][j][k] >> !(p[i][m][k])); 
+				}
+			}
+		}
+	}
 	
 	double satcount = (double)bdd_satcount(task);
 	printf("%lf\n", satcount);
 
-	// out.open("out.txt");
-	// out<<satcount<<" solutions:\n"<<endl;
-	// if (satcount) bdd_allsat(task, fun);
-	// out.close();
+	out.open("out.txt");
+	out<<satcount<<" solutions:\n"<<endl;
+	if (satcount) bdd_allsat(task, fun);
+	out.close();
 
 	bdd_done(); 
 }
@@ -227,9 +256,9 @@ void print(void)
 	for (unsigned i = 0; i < N; i++)
 	{
 		out<<i<<": ";
-		for (unsigned j = 0; j < N; j++)
+		for (unsigned j = 0; j < M; j++)
 		{
-			unsigned J = i*N*LOG_N + j*LOG_N;
+			unsigned J = i*M*LOG_N + j*LOG_N;
 			unsigned num = 0;
 			for (unsigned k = 0; k < LOG_N; k++) num += (unsigned)(var[J + k] << k);
 			out<<num<<' ';
